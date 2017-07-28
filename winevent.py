@@ -1,3 +1,4 @@
+import sys
 import mmap
 from xml.dom import minidom
 
@@ -16,15 +17,29 @@ def main():
         print(h_out)
 
         for strxml, record in Evtx.Views.evtx_file_xml_view(fh):
-            xmlDoc = minidom.parseString(strxml.replace('\n', ''))
-            evtId = xmlDoc.getElementsByTagName("EventID")[0].childNodes[0].nodeValue
+            xmlDom = minidom.parseString(strxml.replace('\n', ''))
+            evtID = xmlDom.getElementsByTagName("EventID")[0].childNodes[0].nodeValue
 
-            if evtId == '4688':
-                print(xmlDoc.toprettyxml())
+            len_ = xmlDom.getElementsByTagName("Data").length
+
+            if evtID == "4907":
+                for i in range(len_):
+                    _ , attriValue = xmlDom.getElementsByTagName("Data")[i].attributes.items()[0]
+                    try:
+                        x = xmlDom.getElementsByTagName("Data")[i].childNodes[0].data
+                    except IndexError:
+                        x = "-"
+                    print(attriValue)
+                    print(x)
+                break
 
         buffer.close()
         endTag = "</Events>"
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        sys.stderr.write("Interrupt by Crtl-C")
+        sys.stderr.flush()
