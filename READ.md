@@ -42,4 +42,4 @@ Windows Events w/ elasticsearch mapping (json)
 
 License
 -------------
-python-evtx is licensed under the Apache License, Version 2.0. This means it is freely available for use and modification in a personal and professional capacity.
+"WinEvent_Looker" is licensed under the Apache License, Version 2.0. This means it is freely available for use and modification in a personal and professional capacity.
