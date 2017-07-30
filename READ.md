@@ -6,7 +6,7 @@
 -----------------------------------------------
 
 [
-    "mappings": {
+    "mappings": { <br />
         "properties": {
             "Event": {
                 "System": {
