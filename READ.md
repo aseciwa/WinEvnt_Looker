@@ -1,8 +1,8 @@
-#WinEvnt_Look code
+# WinEvnt_Look code
     New project name needed. WinEvnt_Looker sucks!
 
 ------------------------------------
-#Windows Events in elasticsearch mapping (json)
+# Windows Events in elasticsearch mapping (json)
 -----------------------------------------------
 
 [
