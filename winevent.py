@@ -7,11 +7,14 @@ Version: 1.0
 import sys
 import json
 import mmap
+import argparse
 from xml.dom import minidom
 
 from Evtx.Evtx import FileHeader
 import Evtx.Views
 
+__description__ = "Winevent"
+__version__ = "1.0.0"
 # TODO Test on other Windows Event logs (e.g. Application, Setup, etc.)
 # TODO Categorize events based on EventID
 # TODO Create a class
