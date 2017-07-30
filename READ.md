@@ -1,13 +1,14 @@
-# WinEvnt_Look code
+WinEvnt_Look code
+------------------------
     New project name needed. WinEvnt_Looker sucks!
 
-------------------------------------
-# Windows Events w/ elasticsearch mapping (json)
------------------------------------------------
 
+Windows Events w/ elasticsearch mapping (json)
+-----------------------------------------------
+"<pre>"
 [
-    "mappings": { __
-        "properties": {
+    "mappings": { 
+        "properties": { 
             "Event": {
                 "System": {
                     "Guid": {"type": "string"},
@@ -35,3 +36,4 @@
         }
     }
 ]
+"</pre>"
