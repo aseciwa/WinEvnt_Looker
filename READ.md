@@ -14,6 +14,8 @@ Windows Events w/ elasticsearch mapping (json)
                     "Guid": {"type": "string"},
                     "EventID": {"type": "string"},
                     "Version": {"type": "string"},
+                    "Level" : {"type": "string"},
+                    "Task": {"type": "string"},
                     "OpCode": {"type": "string"},
                     "Keywords": {"type": "string"},
                     "TimeCreate": {"type": "date"},
@@ -37,3 +39,7 @@ Windows Events w/ elasticsearch mapping (json)
     }
 ]
 </pre>
+
+License
+-------------
+python-evtx is licensed under the Apache License, Version 2.0. This means it is freely available for use and modification in a personal and professional capacity.
