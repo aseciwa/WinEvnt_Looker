@@ -1,4 +1,4 @@
-WinEvnt_Look 
+WinEvnt_Looker 
 ------------------------
     
     What is WinEvnt_Looker? Other than the crappy name, it is a Windows Event Log parser that stores data into Elasticsearch
