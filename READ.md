@@ -5,7 +5,7 @@ WinEvnt_Look code
 
 Windows Events w/ elasticsearch mapping (json)
 -----------------------------------------------
-"<pre>"
+<pre>
 [
     "mappings": { 
         "properties": { 
@@ -36,4 +36,4 @@ Windows Events w/ elasticsearch mapping (json)
         }
     }
 ]
-"</pre>"
+</pre>
