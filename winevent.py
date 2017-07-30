@@ -1,3 +1,9 @@
+"""
+Windows Event Parser
+Parses windows event logs and stores data in an ElasticSearch mapping.
+Version: 1.0
+@author Alan Seciwa
+"""
 import sys
 import json
 import mmap
@@ -6,8 +12,13 @@ from xml.dom import minidom
 from Evtx.Evtx import FileHeader
 import Evtx.Views
 
+# TODO Test on other Windows Event logs (e.g. Application, Setup, etc.)
+# TODO Categorize events based on EventID
+# TODO Create a class
+# TODO Use Argparse for command-line options
 
-def toXml(dom):
+
+def to_xml(dom):
     """
     Print xml to console
     return: None
@@ -18,7 +29,13 @@ def toXml(dom):
     print("</Events.")
 
 
-def getEventData(xmlDom):
+def get_event_data(xmlDom):
+    """
+    Method loops through the Data childnodes to gather node names and
+    node values.
+    :param xmlDom: xml dom object
+    :return: parsed event data in dictionary format
+    """
 
     # holder for event data
     data = {}
@@ -46,21 +63,26 @@ def getEventData(xmlDom):
     return data
 
 
-def getSysStruct(dom):
+def get_sys_data(dom):
+    """
+    Retrieves System nodes and values
+    :param dom: xml dom object
+    :return: elasticsearch mapping object
+    """
     # Windows Event Properties.
     # This current structure applies to Win7, Win Server 2008/r2, & Vista
     # Varies with Win 8, Win 10, & newer versions. ** Research this **.
 
     guid = dom.getElementsByTagName("Provider")[0].attributes["Guid"].value
-    pname = dom.getElementsByTagName("Provider")[0].attributes["Name"].value
-    evtID = dom.getElementsByTagName("EventID")[0].childNodes[0].nodeValue
+    prov_name = dom.getElementsByTagName("Provider")[0].attributes["Name"].value
+    evt_id = dom.getElementsByTagName("EventID")[0].childNodes[0].nodeValue
     version = dom.getElementsByTagName("Version")[0].childNodes[0].nodeValue
     level = dom.getElementsByTagName("Level")[0].childNodes[0].nodeValue
     task = dom.getElementsByTagName("Task")[0].childNodes[0].nodeValue
-    opCode = dom.getElementsByTagName("Opcode")[0].childNodes[0].nodeValue
+    op_code = dom.getElementsByTagName("Opcode")[0].childNodes[0].nodeValue
     keywords = dom.getElementsByTagName("Keywords")[0].childNodes[0].nodeValue
-    timeCreated = dom.getElementsByTagName("TimeCreated")[0].attributes["SystemTime"].value
-    eventRecID = dom.getElementsByTagName("EventRecordID")[0].childNodes[0].nodeValue
+    time_created = dom.getElementsByTagName("TimeCreated")[0].attributes["SystemTime"].value
+    event_rec_id = dom.getElementsByTagName("EventRecordID")[0].childNodes[0].nodeValue
     channel = dom.getElementsByTagName("Channel")[0].childNodes[0].nodeValue
     # correlation -> ActivityID & RelatedActivityID
     # Execution -> ProcessID & ThreadID
@@ -73,22 +95,22 @@ def getSysStruct(dom):
                 "Event": {
                     "System": {
                         "Guid": guid,
-                        "ProvideName": pname,
-                        "EventID": evtID,
+                        "ProvideName": prov_name,
+                        "EventID": evt_id,
                         "Version": version,
                         "Level": level,
                         "Task": task,
-                        "OpCode": opCode,
+                        "OpCode": op_code,
                         "Keywords": keywords,
-                        "TimeCreate": timeCreated,
-                        "EventRecordID": eventRecID,
+                        "TimeCreate": time_created,
+                        "EventRecordID": event_rec_id,
                         "ProcessID": {"type": "string"},
                         "ThreadID": {"type": "string"},
                         "Channel": channel,
                         "Computer": computer,
                         "UserID": security
                     },
-                    "EventData": getEventData(dom)
+                    "EventData": get_event_data(dom)
                 }
             }
         }
@@ -111,12 +133,10 @@ def main():
 
         # record holds offset of file. This is a throwaway variable (__)
         for strxml, record in Evtx.Views.evtx_file_xml_view(fh):
-            xmlDom = minidom.parseString(strxml.replace('\n', ''))
+            xml_dom = minidom.parseString(strxml.replace('\n', ''))
 
             # get System node names and values
-            getSysStruct(xmlDom)
-
-            break
+            get_sys_data(xml_dom)
 
         buffer.close()
 
