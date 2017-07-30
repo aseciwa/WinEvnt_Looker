@@ -1,5 +1,8 @@
-WinEvnt_Look code
+WinEvnt_Look 
 ------------------------
+    
+    What is WinEvnt_Looker? Other than the crappy name, it is a Windows Event Log parser that stores data into Elasticsearch
+    mapping. It is currently in its early stages of development. 
     New project name needed. WinEvnt_Looker sucks!
 
 
