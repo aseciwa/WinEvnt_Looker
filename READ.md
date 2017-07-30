@@ -6,7 +6,7 @@
 -----------------------------------------------
 
 [
-    "mappings": { <br />
+    "mappings": { __
         "properties": {
             "Event": {
                 "System": {
@@ -26,7 +26,7 @@
                 "EventData": {
                     "SubjectUserSid": {"type": "string"},
                     ...
-                    "This section will vary based on Event ID."
+                    "This section will vary based on the Event ID."
                     "This section will be created dynamically."
                     ...
                     "n": {"type": "string"}
