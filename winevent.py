@@ -116,28 +116,8 @@ def main():
             # get System node names and values
             getSysStruct(xmlDom)
 
-            '''
-            evtID = xmlDom.getElementsByTagName("EventID")[0].childNodes[0].nodeValue
-
-            len_ = xmlDom.getElementsByTagName("Data").length
-            data = {}
-            if evtID == "4907":
-                for i in range(len_):
-
-                    _, attriTag = xmlDom.getElementsByTagName("Data")[i].attributes.items()[0]
-                    ob = xmlDom.getElementsByTagName("Data")[i].attributes.items()[0]
-                    print(type(ob))
-                    try:
-                        attriValue = xmlDom.getElementsByTagName("Data")[i].childNodes[0].data
-                    except IndexError:
-                        attriValue = "-"
-
-                    data[attriTag] = attriValue
-                print(json.dumps(data))
-                print(data)
-                break
-            '''
             break
+
         buffer.close()
 
 
